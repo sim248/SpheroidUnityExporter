@@ -92,32 +92,6 @@ Drag-n-drop "ClientLibrary.spheroid" and "SceneLibrary.spheroid" files
 
 You're done!
 
-![](images/upload-resulting-file.png)
-
-The "Scene.spheroid" file contains script that, while running on your mobile device,
-will create and place the objects in the same way they
-were placed in the Unity scene. 
-However, this script is not independent. To run, it needs the special library. 
-You have already uploaded it to your app in the Spheroid Demiurge IDE in 
-"ClientLibrary.spheroid" and "SceneLibrary.spheroid" files.
-
-Every time you use the exported from Unity scene you will also need to copy the
-"ClientLibrary.spheroid" and "SceneLibrary.spheroid" files to your app.
-
-You also will need to specify the paths to "Scene.spheroid", "ClientLibrary.spheroid" and 
-"SceneLibrary.spheroid" files in the "app.json".
-In the source code, we have already done it for you:
-
-![](images/tree-files-2.png)
-
-We have also already prepared the code that will create and launch the scene.
-You can see it in the "Client.spheroid" file:
-
-```
-fun main() {
-    startScene(createScene())
-}
-```
 
 Now you can proceed to publishing your app.
 
