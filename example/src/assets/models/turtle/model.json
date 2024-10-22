@@ -1,4 +1,0 @@
-{ 
-  "ios": "./ios/*.scn",
-  "android": "./android/turtle.glb"
-}
