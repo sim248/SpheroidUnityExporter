@@ -1,0 +1,27 @@
+@Action
+fun getpipe() {
+    println("Server: getpipe action called")
+
+    val pipes = mutableListOf()  // Mutable list to hold dynamic pipe pairs
+
+    // Add a pair of pipes: lower pipe and upper pipe with a gap
+    val lowerPipe = dynamicOf(
+        position = Vector3(x = 0, y = 0, z = 0),  // Position for the lower pipe
+        eulerAngles = Vector3(x = 0, y = 0, z = 0)  // No rotation for the lower pipe
+    )
+    
+    val upperPipe = dynamicOf(
+        position = Vector3(x = 0, y = 9, z = 0),  // Adjust Y position for the upper pipe
+        eulerAngles = Vector3(x = 0, y = 180, z = 0)  // Rotate the upper pipe by 180 degrees
+    )
+
+    pipes.add(dynamicOf(
+        lower = lowerPipe,
+        upper = upperPipe
+    ))
+
+    println("Server: Returning pipe positions and rotations")
+
+    // Return the list of pipes dynamically
+    return dynamicOf(pipes = pipes)
+}
