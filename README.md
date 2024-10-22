@@ -100,7 +100,8 @@ Now you can proceed to publishing your app.
 Click the "Publish" button in the top menu and, when the dialog comes up, keep the default settings, 
 and click the "Publish" button at the right bottom of the dialog.
 
-![](images/publish-1.png)
+![publish-1](https://github.com/user-attachments/assets/3d9bbd65-51a6-44ed-b79f-3c30d6c31872)
+
 
 If the publication has been successful, you will see two info messages in the "Build" tab in the bottom pane. 
 Congratulations, you have published your app!
