@@ -52,7 +52,7 @@ keeping the tree structure unchanged.
 So in the root of your app you need to have a folder named "assets",
 as well as the four files.
 
-```
+
 (XR Flappy)
     |--- assets
     |   |--- audio
@@ -106,11 +106,7 @@ and click the "Publish" button at the right bottom of the dialog.
 If the publication has been successful, you will see two info messages in the "Build" tab in the bottom pane. 
 Congratulations, you have published your app!
 
-![](images/publish-1.png).
-![](images/02---create-app-1.png)
-images/publish-1.png
-![](images/01---marketplace-register.png)
-publish-1.png
+![](images/publish-1.png)
 
 
 If you don't see two info messages, or you see error messages instead, 
