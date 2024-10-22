@@ -106,7 +106,12 @@ and click the "Publish" button at the right bottom of the dialog.
 If the publication has been successful, you will see two info messages in the "Build" tab in the bottom pane. 
 Congratulations, you have published your app!
 
-![](images/publish-2.png)
+![](images/publish-1.png).
+![](images/02---create-app-1.png)
+images/publish-1.png
+![](images/01---marketplace-register.png)
+publish-1.png
+
 
 If you don't see two info messages, or you see error messages instead, 
 check you've followed the previous steps accurately and, if so, 
