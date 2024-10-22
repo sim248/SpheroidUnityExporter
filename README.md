@@ -53,34 +53,21 @@ So in the root of your app you need to have a folder named "assets",
 as well as the four files.
 
 ```
-(Your app name)
-|--- assets
-|   |--- audio
-|       |--- apache.mp3
-|       |--- music.mp3
-|   |--- models
-|       |--- apache
-|           |--- apache.glb
-|           |--- apache.scn
-|           |--- model.json
-|       |--- island
-|           |--- island.glb
-|           |--- island.scn
-|           |--- model.json
-|       |--- turtle
-|           |--- android
-|               |--- turtle.glb 
-|           |--- ios
-|               |--- turtle_baseColor.jpg
-|               |--- turtle_normal.jpg
-|               |--- turtle.scn
-|           |--- bundle.json
-|           |--- model.json
+(XR Flappy)
+    |--- assets
+    |   |--- audio
+    |       |--- Pickup_Coin4.ogg
+    |--- backGround007v2.glb
+    |--- bird007v10.glb
+    |--- FlappyCoin.png
+    |--- Ground007v1.glb
+    |--- Pipe007v6.glb
 |--- app.json
 |--- Client.spheroid
 |--- ClientLibrary.spheroid
+|--- GetPipesAction.spheroid
 \--- SceneLibrary.spheroid
-```
+
 
 Currently, you can't upload a whole zip or a folder to the IDE 
 but you can upload multiple files at once by a single drag-n-drop.
@@ -92,18 +79,6 @@ then, when the dialog comes up, enter "assets" and click "OK".
 In this way, create each folder in the tree structure. There will be several folders where we will
 put models and sounds we would like to use in the scene.
 
-Each model folder contains:
-
-- a "*.glb" model file for the Android version of the XR Hub app
-- a "*.scn" model file for the iOS version of the XR Hub app (will be released soon)
-- a "model.json" file that connects each model file to the specific platform:
-
-```
-{ 
-  "ios": "./*.scn",
-  "android": "./*.glb"
-}
-```
 
 For each folder, left-click the folder to expand it. The text "Drag-n-drop files here to upload" 
 will appear on the right. Drag-n-drop the files from the corresponding folder 
