@@ -2,8 +2,10 @@
   "client": [
     "./Client.spheroid",
     "./ClientLibrary.spheroid",
-    "./SceneLibrary.spheroid",
-    "./Scene.spheroid"
+    "./SceneLibrary.spheroid"
+  ],
+  "server": [
+    "./GetPipesAction.spheroid"
   ],
   "version": "1.0.0"
 }
