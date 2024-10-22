@@ -162,11 +162,9 @@ For example, you can add the "island" model to the scene (you can find it in the
 
 ## Troubleshooting
 
-If you have encountered any problems, please let us know by 
-[submitting an issue](https://spheroiduniverse.github.io/SpheroidScript/submit-an-issue.html), 
-we will make sure to help you find the solution. Please don't hesitate to contact us, 
-as your issues and our replies will help to make our platform better and will be valuable 
-to other developers.
+This is a community repo, and any questions should be directed to the community project office Telegram group.
+https://t.me/pokossu
+
 
 ## What's next?
 
