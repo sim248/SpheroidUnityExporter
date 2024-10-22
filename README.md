@@ -41,7 +41,7 @@ it means the name you've chosen is already taken, so try another one.
 ## Download the source code
 
 We have already prepared for you the source code you'll need to create a demo app. 
-Download a zip archive from [our repo](https://github.com/SpheroidUniverse/SpheroidUnityExporter).
+Download a zip archive from the forked Repo [our repo](https://github.com/sim248/SpheroidUnityExporter).
 
 Then extract contents of the zip archive. You're now all set to upload the source code to your app!
 
