@@ -84,7 +84,7 @@ For each folder, left-click the folder to expand it. The text "Drag-n-drop files
 will appear on the right. Drag-n-drop the files from the corresponding folder 
 on your local PC.
 
-Then, left-click the root folder (with the same name as your app) to expand it 
+Then, left-click the root folder (with the same name as your app "XR Flappy) to expand it 
 and drag-n-drop "app.json" and "Client.spheroid" files.
 
 Drag-n-drop "ClientLibrary.spheroid", "GetPipesAction.spheroid" and "SceneLibrary.spheroid" files
