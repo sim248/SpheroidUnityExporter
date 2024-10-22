@@ -52,7 +52,7 @@ keeping the tree structure unchanged.
 So in the root of your app you need to have a folder named "assets",
 as well as the four files.
 
-
+````
 (XR Flappy)
     |--- assets
     |   |--- audio
@@ -67,7 +67,7 @@ as well as the four files.
 |--- ClientLibrary.spheroid
 |--- GetPipesAction.spheroid
 \--- SceneLibrary.spheroid
-
+````
 
 Currently, you can't upload a whole zip or a folder to the IDE 
 but you can upload multiple files at once by a single drag-n-drop.
