@@ -100,7 +100,7 @@ Now you can proceed to publishing your app.
 Click the "Publish" button in the top menu and, when the dialog comes up, keep the default settings, 
 and click the "Publish" button at the right bottom of the dialog.
 
-https://github.com/SpheroidUniverse/SpheroidUnityExporter/blob/master/images/publish-1.png
+![](images/01---marketplace-register.png)
 
 
 If the publication has been successful, you will see two info messages in the "Build" tab in the bottom pane. 
