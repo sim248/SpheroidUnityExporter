@@ -87,12 +87,10 @@ on your local PC.
 Then, left-click the root folder (with the same name as your app) to expand it 
 and drag-n-drop "app.json" and "Client.spheroid" files.
 
-![](images/tree-files-3.png)
 
 Drag-n-drop "ClientLibrary.spheroid" and "SceneLibrary.spheroid" files
-that provide the means for the files exported from Unity to run (more on this a little later).
 
-You're done! Now you can proceed to creating a scene in Unity.
+You're done!
 
 ## Create a scene in Unity and export it
 
@@ -103,126 +101,6 @@ using the plugin.
 If you want to make things quicker, you can open the sample project we have prepared 
 (see the "Unity Project" folder in the zip archive) and skip the scene creation and markup. 
 
-### Create a scene
-
-Create a new scene in Unity:
-
-![](images/unity-create-scene-1.png)
-
-Select a 3D template:
-
-![](images/unity-create-scene-2.png)
-
-Place the objects on the scene, rotate and scale them. Add animations if you'd like.
-In the sample project, we have add an animation to the "Helicopters" node to make all
-nested nodes rotate.
-
-![](images/unity-place-objects.png)
-
-### Import the plugin
-
-You can find the current version of plugin in the zip archive you have downloaded in the "packages"
-folder".
-
-Import the package into your project in Unity:
-
-![](images/import-1.png)
-
-When the dialog comes up, click "Import".
-
-You will see the new "Spheroid Universe" tab has appeared in the menu:
-
-![](images/import-2.png)
-
-If you get a conflict of Newtonsoft JSON library,
-just delete the folder with the Newtonsoft JSON plugin from the Spheroid Universe Exporter folder.
-
-![](images/import-3.png)
-
-### Markup the scene
-
-The plugin provides three components for the scene markup:
-
-1. SpheroidModel. Describes a model, its sound and animation.
-   
-    - Model Path. A path to the model file relatively to the app root in the Spheroid Demiurge IDE.
-    - Sound Path. A path to the model sound file relatively to the app root. This sound is 
-    positioned, i.e. it will be bound to the model node position. Commonly used for such sounds,
-    as steps, engine, etc.
-    - Animation Name. If a model contains a built-in animation, you can specify the animation name,
-    and it will be played in the app. Animation will be cycled.
-    - View Distance. When the distance in metres between the user and the model is less
-    than specified, model is downloaded and appears on the scene in the app.
-    - Export. Indicates if this object needs to be exported to the scene graph.
-
-2. SpheroidAudio. Describes a non-positioned sound.
-
-    - Sound Path. A path to the model sound file relatively to the app root. 
-    This sound is non-positioned. Usually used for background sounds and event sounds.
-    - Export. Indicates if this object needs to be exported to the scene graph.
-
-3. SpheroidNode. Describes a node and its sound.
-
-    - Sound Path. A path to the model sound file relatively to the app root. This sound is 
-    positioned, i.e. it will be bound to the node position. Commonly used for such sounds,
-    as steps, engine, etc.
-    - Export. Indicates if this object needs to be exported to the scene graph.
-
-These components are necessary to help the plugin generate the scene graph and 
-understand which kind of object needs to be created.
-
-Note that plugin reads and remembers only information about the object placement 
-on the scene but not about the model itself.
-We have added the helicopter model and the turtle model to the Unity scene only 
-for demonstration.
-We could have used primitives instead. However, it is essential to specify the right
-paths to the model files in the Spheroid Demiurge IDE.
-
-#### Model
-
-Select the GameObject containing a model and add a SpheroidModel component. 
-Repeat this for each GameObject containing a model.
-
-![](images/unity-add-component-1.png)
-
-Fill in all the component fields. Note that path to the file should start with "/".
-
-![](images/unity-add-component-2.png)
-
-#### Background sound
-
-If you would like to add a background sound, create an empty GameObject:
-
-![](images/unity-background-sound-1.png)
-
-Add a SpheroidAudio component and specify the path to the audio file in your app 
-in the Spheroid Demiurge IDE relatively to the root:
-
-![](images/unity-background-sound-2.png)
-
-The markup stage is finished. Now we need to export the scene to Spheroid Script.
-
-### Export the scene
-
-In the menu, click the "Spheroid Universe" tab.
-
-![](images/unity-generate-files.png)
-
-First, click "Export to JSON". The "scenegraph.json" file will be generated.
-You will see in the console: 
-
-![](images/unity-generate-json.png)
-
-Second, click "Export to Spheroid Script". The "Scene.spheroid" file will be generated.
-You will see in the console: 
-
-![](images/unity-generate-spheroid-script.png)
-
-You can find generated files in the "out" folder in your Unity project:
-
-![](images/unity-generated-files-out.png)
-
-This sums up the work in Unity.
 
 ## Set everything up in the Spheroid Demiurge IDE
 
