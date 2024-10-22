@@ -87,8 +87,7 @@ on your local PC.
 Then, left-click the root folder (with the same name as your app) to expand it 
 and drag-n-drop "app.json" and "Client.spheroid" files.
 
-
-Drag-n-drop "ClientLibrary.spheroid" and "SceneLibrary.spheroid" files
+Drag-n-drop "ClientLibrary.spheroid", "GetPipesAction.spheroid" and "SceneLibrary.spheroid" files
 
 You're done!
 
