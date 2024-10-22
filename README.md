@@ -40,7 +40,7 @@ it means the name you've chosen is already taken, so try another one.
 
 ## Download the source code
 
-You need to create a demo app. 
+Create a demo app. 
 Download a zip archive from the forked Repo [Flappy repo](https://github.com/sim248/SpheroidUnityExporter).
 
 Then extract contents of the zip archive. You're now all set to upload the source code to your app!
