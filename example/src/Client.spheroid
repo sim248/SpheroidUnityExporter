@@ -1,3 +1,387 @@
+var isScrolling = false  // Boolean flag to control pipe scrolling
+val geoAnchor = GeoAnchor.default // The base node where all models will be attached.
+var pipeModel = Model(source = Source("/assets/Pipe007v6.glb"))
+val model1 = Model(source = Source("/assets/backGround007v2.glb"))
+val model2 = Model(source = Source("/assets/Ground007v1.glb"))
+val model3 = Model(source = Source("/assets/bird007v10.glb"))
+val notificationIcon = Image(source = Source("/assets/FlappyCoin.png"))
+val scoreAudio = Audio(source = Source("/assets/audio/Pickup_Coin4.ogg"))
+val pipes = mutableListOf()  // List to track all pipe nodes
+val gapHeight = 5  // The gap between the lower and upper pipes
+var lastY = 0.0
+var score = 0
+
+val leftPadding = 18dp
+val dividerColor = Color(rgba = 0x00000066)
+val buttonColor = Color(rgb = 0x007AFF)
+val activeColor = Color(rgba = 0x00000022)
+val gameOverColor = Color(rgb = 0xFFFFFF)
+
+// Set up the main page
+fun mainPage() =
+    Page(
+        title = "XR Flappy",
+        backgroundColor = Color(rgba = 0x00000080),
+        navigationBarBackgroundColor = Color(rgba = 0x00000080),
+        navigationBarForegroundColor = Color(rgb = 0xFFFFFF)
+    ) { page ->  // Pass the page instance here
+        Container(backgroundColor = Color(rgba = 0x00000080)) {
+            Vertical(spacing = 0, left = 0, right = 0) {
+                Container { Container(height = 300px, backgroundColor = dividerColor) }
+
+                Container(height = 44dp) {
+                    Text(text = "Start Game", horizontalAlign = "center", textColor = buttonColor, left = leftPadding, verticalAlign = "center")
+                }.onClick {
+                    // Use navigate to switch the page content and start the game.reload
+                    startGamePage()  // Navigate to the game scene or replace content
+                    page.back(3)
+                }
+            }
+        }
+    }
+
+
+// Set up the game page, replacing the main menu
+fun startGamePage() {
+    scoreAudio.load()
+        isScrolling = true
+        //startScene(createScene())
+        startPipeSpawning()   // Start the game scene here
+        updateScoreNotification()
+        scoreAudio.load()  // Show the score notifications
+}
+
+fun gameOverPage() =
+    Page(
+        title = "XR Flappy",
+        backgroundColor = Color(rgba = 0x00000080),
+        navigationBarBackgroundColor = Color(rgba = 0x00000080),
+        navigationBarForegroundColor = Color(rgb = 0xFFFFFF)
+    ) { page ->  // Pass the page instance here
+        Container(backgroundColor = Color(rgba = 0x00000080)) {
+            Vertical(spacing = 0, left = 0, right = 0) {
+                Container { Container(height = 300px, backgroundColor = dividerColor) }
+                
+                Container(height = 44dp) {
+                    Text(text = "Game Over", horizontalAlign = "center", textColor = gameOverColor, left = leftPadding, verticalAlign = "center")
+                }
+                
+                Container(height = 44dp) {
+                Text(text = "Score: $score", horizontalAlign = "center", textColor = gameOverColor, left = leftPadding, verticalAlign = "center")
+                }
+                
+                Container(height = 44dp) {
+                    Text(text = "Start Again", horizontalAlign = "center", textColor = buttonColor, left = leftPadding, verticalAlign = "center")
+                }.onClick {
+                    //pipes.remove(pipe)
+                    score = score - score
+                    isScrolling = true
+                    // Use navigate to switch the page content and start the game.reload
+                    // Navigate to the game scene or replace content
+                    page.back(3)
+                }
+            }
+        }
+    } 
+
+fun overPage() =
+    Page(
+        title = "Colored Page",
+        backgroundColor = Color(rgb = 0xFFFF00),
+        navigationBarBackgroundColor = Color(rgb = 0x00FFFF),
+        navigationBarForegroundColor = Color(rgb = 0xFF00FF)
+    ) { page ->
+        Button(text = "Go Back", top = 18dp, left = 18dp).onClick {
+            page.back(3)
+        }
+        Button(text = "Go Back Twice", width = 170dp, top = 70dp, left = 18dp).onClick {
+            page.back(2)
+        }
+    }
+
 fun main() {
+    mainPage().navigate()
     startScene(createScene())
+
+    // Load assets and create the pipe scene
+    loadAssets {
+        println("pipes are loaded")
+        //startPipeSpawning()  // Start pipe scrolling
+    }
+}
+
+fun createScene() {
+    val sceneData = SceneData()
+
+    // Create a main node for the scene
+    val node1 = Node()
+    node1.position = Vector3(x = 0, y = 0, z = 0)
+    node1.eulerAngles = Vector3(x = 0, y = 180, z = 0)
+    node1.scale = Vector3(x = 1, y = 1, z = 1)
+
+    // Create background
+    val modelNode1 = ModelNode()
+    modelNode1.position = Vector3(x = 0, y = 0, z = 50)
+    modelNode1.eulerAngles = Vector3(x = 0, y = 0, z = 0)
+    modelNode1.scale = Vector3(x = 1, y = 1, z = 1)
+    geoAnchor.children.add(modelNode1)
+
+    // Create the ground
+    val modelNode2 = ModelNode()
+    modelNode2.position = Vector3(x = 0, y = 0, z = 50)
+    modelNode2.eulerAngles = Vector3(x = 0, y = 0, z = 0)
+    modelNode2.scale = Vector3(x = 1, y = 1, z = 1)
+    geoAnchor.children.add(modelNode2)
+
+    // Create the bird
+    val modelNode3 = ModelNode()
+    modelNode3.position = Vector3(x = 0, y = 5, z = 50)
+    modelNode3.eulerAngles = Vector3(x = 0, y = 180, z = 0)
+    modelNode3.scale = Vector3(x = 1, y = 1, z = 1)
+    geoAnchor.children.add(modelNode3)
+
+    // Add the node1 with its children to the scene
+    geoAnchor.children.add(node1)
+
+    // Create scene objects for background, ground, and bird
+    createSceneObject(model1, modelNode1, node1, null, sceneData)
+    createSceneObject(model2, modelNode2, node1, null, sceneData)
+    createSceneObject(model3, modelNode3, node1, "flying", sceneData)
+
+    // Apply rotation animation to the background (modelNode1)
+    val rotateAnimation = RotationAnimation(
+        by = Vector3(y = -180),  // Full rotation around the Y axis
+        duration = TimeInterval(seconds = 8),  // Duration of 10 seconds for a full rotation
+        interpolation = "linear"  // Smooth, continuous rotation
+    )
+
+    // Create an animation controller for the background node
+    val idleController = modelNode1.getAnimationController(
+        AnimationSequence(listOf(rotateAnimation, rotateAnimation))  // Wrap the rotation in an animation sequence
+    )
+
+    // Start playing the animation loop
+    idleController.play(loop = true)
+
+    // Define the onTap event for the bird
+    modelNode2.onTap {
+        val currentLocation = modelNode3.position
+
+        // Check if the bird's y position is less than the pipe's y position plus 10
+        if (currentLocation.y < lastY + 23) {
+            val newBirdPosition = Vector3(
+                currentLocation.x,
+                currentLocation.y + 2.0,  // Move bird up by 2 units when tapped
+                currentLocation.z
+            )
+
+            // Update bird's position
+            modelNode3.position = newBirdPosition
+        }
+    }
+
+    modelNode1.onTap {
+        val currentLocation = modelNode3.position
+
+        // Check if the bird's y position is less than the pipe's y position plus 10
+        if (currentLocation.y < lastY + 10) {
+            val newBirdPosition = Vector3(
+                currentLocation.x,
+                currentLocation.y + 2.0,  // Move bird up by 2 units when tapped
+                currentLocation.z
+            )
+
+            // Update bird's position
+            modelNode3.position = newBirdPosition
+        }
+    }
+
+
+    // Timer for bird gravity update and pipe scrolling
+    Timer.schedule(period = TimeInterval(seconds = 0.016)) {  // 60 FPS
+        if (isScrolling) {
+            val pipeScrollSpeed = 0.1
+            val gravity = 0.05
+            val birdSize = Vector3(3, 3, 3)  // Assuming bird size (adjust as needed)
+
+            // Bird gravity update
+            val birdPosition = modelNode3.position
+            val newBirdPosition = Vector3(
+                birdPosition.x,
+                birdPosition.y - gravity,  // Apply gravity
+                birdPosition.z
+            )
+            modelNode3.position = newBirdPosition
+
+            // Loop through all pipes and check for collision
+            for (pipe in pipes) {
+                val pipePosition = pipe.position
+                val pipeSize = Vector3(3, 3, 3)  // Example pipe size (adjust as needed)
+
+                // Move pipe horizontally
+                val newPipePosition = Vector3(
+                    pipePosition.x + pipeScrollSpeed,
+                    pipePosition.y,
+                    pipePosition.z
+                )
+                pipe.position = newPipePosition
+
+                // Debugging output for pipe positions
+                //println("New Pipe Position: $newPipePosition")
+
+                // Check for collision with the bird
+                if (checkPipeCollision(newBirdPosition, birdSize, newPipePosition, pipeSize)) {
+                    println("Collision Detected!")
+
+                    // Remove all pipes from the scene and the pipes list
+                    for (pipe in pipes) {
+                        geoAnchor.children.remove(pipe)
+                    }
+                    
+                    pipes.clear()  // Clear the entire pipes list
+
+                    gameOverPage().navigate()  // Display game over page
+                    isScrolling = false  // Stop the game on collision
+                    break
+                }
+
+            // Remove pipe if it goes off-screen
+            if (newPipePosition.x > 3) {
+                geoAnchor.children.remove(pipe)
+                pipes.remove(pipe)
+
+                // Check if the pipe is above the bird when it passes off-screen
+                if (newPipePosition.y < newBirdPosition.y) {
+                    score = score + 1  // Increment score when the pipe passes the bird
+                    println("Score: $score")
+                    scoreAudio.play()
+                }
+            }
+        }
+    }
+}
+
+    return sceneData  // Return scene data to ensure completion
+
+}
+
+fun checkPipeCollision(birdPosition, birdSize, pipePosition, pipeSize) {
+    val birdX = birdPosition.x
+    val birdY = birdPosition.y
+    val pipeX = pipePosition.x
+    val pipeY = pipePosition.y
+
+    // Check for collision on the X-axis (horizontal overlap)
+    val birdXCollision = birdX + birdSize.x / 2 >= pipeX - pipeSize.x / 2 && birdX - birdSize.x / 2 <= pipeX + pipeSize.x / 2
+
+    // Check for collision on the Y-axis (vertical overlap)
+    val birdYCollision = birdY + birdSize.y / 2 >= pipeY - pipeSize.y / 2 && birdY - birdSize.y / 2 <= pipeY + pipeSize.y / 2
+
+    // Return true if both X and Y collisions are true
+    return birdXCollision && birdYCollision
+}
+
+
+// Function to load pipe assets
+fun loadAssets(callback) {
+    pipeModel.load { success, error ->
+        if (!success) {
+            println("Error loading pipe model: $error")
+            return
+        }
+        callback.invoke()  // Continue only if loading is successful
+    }
+}
+
+// Function to generate a random Y position based on a column index (like the randomization in CoinQuest)
+fun generateRandomY(columnIndex, minY, maxY) {
+    // Create a random generator with a seed based on the column index
+    val random = Random(columnIndex * 12345)  // You can adjust the multiplier for better randomness
+    val range = maxY - minY
+
+    // Generate a random value between 0 and 1, and scale it to the minY-maxY range
+    val randomValue = random.nextDouble()
+    return minY + (range * randomValue)
+}
+
+
+// Function to create and spawn a pair of pipes (lower and upper)
+fun createPipe(position) {
+    if (isScrolling) {
+        // Create the lower pipe node
+        val lowerPipe = ModelNode(
+            model = pipeModel,  // Use the globally loaded pipe model
+            position = position,  // Set the position for the lower pipe
+            scale = Vector3(x = 1, y = 1, z = 1)  // Default scale
+        )
+
+        // Create the upper pipe node (positioned above the lower pipe with a gap)
+        val upperPipePosition = Vector3(position.x, position.y + gapHeight + 5, position.z)  // Adjusting y with gapHeight and a buffer
+        val upperPipe = ModelNode(
+            model = pipeModel,  // Use the same pipe model for the upper pipe
+            position = upperPipePosition,  // Place it above the lower pipe
+            scale = Vector3(x = 1, y = 1, z = 1),  // Default scale
+            eulerAngles = Vector3(x = 0, y = 0, z = 180)
+        )
+
+        // Add both pipes to the scene
+        geoAnchor.children.add(lowerPipe)
+        geoAnchor.children.add(upperPipe)
+
+        // Track the pipe nodes for scrolling
+        pipes.add(lowerPipe)
+        pipes.add(upperPipe)
+        
+        Notification.show(text = "Score: $score", icon = notificationIcon)
+
+        //println("Pipe pair created at positions: lower = $position, upper = $upperPipePosition")
+    }    
+}
+
+
+// Function to spawn pipes continuously at random intervals
+fun startPipeSpawning() {
+    var columnIndex = 1  // Initialize column index for randomness
+
+    Timer.schedule(period = TimeInterval(seconds = 2.0)) {  // Spawn a new pipe every 2 seconds
+        // Set the minY and maxY for the Y-coordinate range
+        val minY = lastY - 5
+        val maxY = lastY + 5
+
+        // Generate a random Y position using the column index and the minY-maxY range
+        val randomY = generateRandomY(columnIndex, minY, maxY)
+
+        // Spawn the pipe at the generated random Y position
+        createPipe(Vector3(x = -30, y = randomY, z = 50))
+
+        // Update lastY to the new random Y value for the next pipe
+        lastY = randomY
+
+        // Increment the columnIndex to ensure new randomization for each new pipe
+        columnIndex = columnIndex + 1
+        
+    }
+}
+
+fun updateScoreNotification() {
+    notificationIcon.load {
+        println("Notification: $score points")
+        Notification.show(icon = this, text = score.toString())
+    }
+}
+
+// Function to create scene objects (unchanged from XR Flappy)
+fun createSceneObject(model, modelNode, parentNode, animationName, sceneData) {
+    val sceneObject = SceneObjectData()
+    sceneObject.node = modelNode
+    sceneObject.viewDistance = 100000
+    sceneObject.model = model
+    sceneObject.parent = parentNode
+
+    // Add animation if provided
+    if (animationName != null) {
+        sceneObject.animationName = animationName
+    }
+
+    sceneData.objects.add(sceneObject)
 }
