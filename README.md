@@ -26,7 +26,7 @@ Open the "Apps" tab and click the "Create" button.
 
 ![](images/02---create-app-1.png)
 
-Enter the app name, leave the check on the "Create a layer corresponding to this app" box 
+Enter the app name "XR Flappy", leave the check on the "Create a layer corresponding to this app" box 
 and click the "Create App" button. The app will be created along with the layer you will later 
 use to publish the app into.
 
