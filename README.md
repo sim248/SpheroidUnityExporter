@@ -1,21 +1,8 @@
-# Spheroid Unity Exporter
+XR Flappy is a re-engineered fork of the SpheroidUnityExporter, originally developed by Spheroid Universe. This version builds upon the Exporter as a foundation for the enhanced XR Flappy experience.
 
-This tutorial will take you through the steps to 
-export an AR scene created in Unity to Spheroid Script in order to become a part of code created 
-in the Spheroid Demiurge IDE and then to be launched and played on mobile devices in the XR Hub super-app.
+The game transitions from a traditional 2D scrolling screen to a fully immersive AR experience, seamlessly integrating the gameplay into the player's real-world environment. This innovative style of augmented reality gameplay marks a significant evolution in spatial gaming.
 
-## Intro
-
-Spheroid Unity Exporter has been designed to make the process of creating a scene 
-easy and convenient for you. 
-
-You use the Unity editor to position, rotate and scale objects in the scene and animate it. 
-The plugin analyses the scene, remembers the position, angle and scale of objects, 
-as well as their animation. 
-After that, the plugin generates a scene graph in JSON, from which it generates the 
-Spheroid Script resulting file. 
-This file can be uploaded to the Spheroid Demiurge IDE and incorporated into 
-an app.
+XR Flappy is procedurally generated and powered by the latest version of Demiurge, highlighting the powerful capabilities of Spheroid Script and the Spheroid IDE. This project not only showcases the potential of Demiurge but also opens up exciting new possibilities for developers working within the Spheroid ecosystem.
 
 ## Create an account in the Spheroid Universe Platform
 
