@@ -41,7 +41,14 @@ it means the name you've chosen is already taken, so try another one.
 ## Download the source code
 
 Create a demo app. 
+
 Download a zip archive from the forked Repo [Flappy repo](https://github.com/sim248/SpheroidUnityExporter).
+
+Alternate Download:
+
+To avoid any confusion, this release includes a different file name from the SpheroidUnityExporter. You can download the updated version of the project with a more appropriate name to better reflect the changes in this fork.
+
+[Link to the alternate download](https://github.com/sim248/SpheroidUnityExporter/releases)
 
 Then extract contents of the zip archive. You're now all set to upload the source code to your app!
 
