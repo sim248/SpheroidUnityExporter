@@ -10,6 +10,7 @@ val pipes = mutableListOf()  // List to track all pipe nodes
 val gapHeight = 5  // The gap between the lower and upper pipes
 var lastY = 0.0
 var score = 0
+val upperBoundary = 10
 
 val leftPadding = 18dp
 val dividerColor = Color(rgba = 0x00000066)
@@ -168,7 +169,7 @@ fun createScene() {
         val currentLocation = modelNode3.position
 
         // Check if the bird's y position is less than the pipe's y position plus 10
-        if (currentLocation.y < lastY + 23) {
+        if (currentLocation.y < lastY + upperBoundary) {
             val newBirdPosition = Vector3(
                 currentLocation.x,
                 currentLocation.y + 2.0,  // Move bird up by 2 units when tapped
@@ -184,7 +185,7 @@ fun createScene() {
         val currentLocation = modelNode3.position
 
         // Check if the bird's y position is less than the pipe's y position plus 10
-        if (currentLocation.y < lastY + 10) {
+        if (currentLocation.y < lastY + upperBoundary) {
             val newBirdPosition = Vector3(
                 currentLocation.x,
                 currentLocation.y + 2.0,  // Move bird up by 2 units when tapped
